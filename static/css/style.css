@@ -1,0 +1,46 @@
+/* Custom styles for Piki Ora Medical Centre.
+ * Layered on top of Bootstrap 5; keep tweaks minimal so updates are easy.
+ */
+
+:root {
+  --piki-primary: #0d6efd;
+  --piki-accent: #0b5ed7;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+  letter-spacing: 0.02em;
+}
+
+main.container {
+  min-height: 60vh;
+}
+
+.card {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.card-img-top {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+.list-group-item.active {
+  background-color: var(--piki-accent);
+  border-color: var(--piki-accent);
+}
+
+footer {
+  border-top: 1px solid #dee2e6;
+  background: #fff;
+}
+
+.display-6 {
+  font-weight: 600;
+}
