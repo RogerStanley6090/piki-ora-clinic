@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}My Appointments | Piki Ora{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">My Appointments</h1>
+
+<h3>Upcoming</h3>
+{% if upcoming %}
+  <div class="table-responsive mb-4">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Reason</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment in upcoming %}
+          <tr>
+            <td>Dr. {{ appointment.slot.doctor.name }}</td>
+            <td>{{ appointment.slot.start_time|date:"D d M Y" }}</td>
+            <td>{{ appointment.slot.start_time|date:"H:i" }}</td>
+            <td>{{ appointment.reason|truncatechars:60|default:"—" }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'clinic:edit_appointment' appointment.pk %}">Edit</a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'clinic:cancel_appointment' appointment.pk %}">Cancel</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="text-muted">No upcoming appointments. <a href="{% url 'clinic:doctor_list' %}">Book one now</a>.</p>
+{% endif %}
+
+<h3 class="mt-4">Past & Cancelled</h3>
+{% if past %}
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment in past %}
+          <tr>
+            <td>Dr. {{ appointment.slot.doctor.name }}</td>
+            <td>{{ appointment.slot.start_time|date:"D d M Y" }}</td>
+            <td>{{ appointment.slot.start_time|date:"H:i" }}</td>
+            <td>
+              <span class="badge bg-{% if appointment.status == 'cancelled' %}secondary{% else %}success{% endif %}">
+                {{ appointment.get_status_display }}
+              </span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="text-muted">Nothing to show.</p>
+{% endif %}
+{% endblock %}

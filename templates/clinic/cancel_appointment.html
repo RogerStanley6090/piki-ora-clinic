@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Cancel Appointment | Piki Ora{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-danger">
+      <div class="card-body p-4">
+        <h2 class="text-danger">Cancel Appointment</h2>
+        <p>
+          Are you sure you want to cancel your appointment with
+          <strong>Dr. {{ appointment.slot.doctor.name }}</strong>
+          on <strong>{{ appointment.slot.start_time|date:"l d M Y H:i" }}</strong>?
+        </p>
+        <p class="text-muted small">
+          The slot will become available for other patients to book.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+          <a class="btn btn-secondary" href="{% url 'clinic:my_appointments' %}">Keep Appointment</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

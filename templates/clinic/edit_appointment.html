@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Edit Appointment | Piki Ora{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2>Edit Appointment</h2>
+        <p class="text-muted">
+          With <strong>Dr. {{ appointment.slot.doctor.name }}</strong>
+          on <strong>{{ appointment.slot.start_time|date:"l d M Y H:i" }}</strong>.
+        </p>
+        <hr>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="{{ form.reason.id_for_label }}" class="form-label">Reason for visit</label>
+            {{ form.reason|add_class:"form-control" }}
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a class="btn btn-secondary" href="{% url 'clinic:my_appointments' %}">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
