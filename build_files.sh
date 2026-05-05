@@ -27,4 +27,10 @@ if ! python3.12 --version >/dev/null 2>&1; then
 fi
 $PY_CMD manage.py collectstatic --noinput --clear
 
+echo "==> Running database migrations..."
+$PY_CMD manage.py migrate --noinput
+
+echo "==> Seeding initial data (admin user, sample doctors, slots)..."
+$PY_CMD manage.py seed_data || echo "Seed step had issues (this is OK if data already exists)"
+
 echo "==> BUILD END"
