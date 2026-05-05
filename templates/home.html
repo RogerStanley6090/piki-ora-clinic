@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome | Piki Ora Medical Centre{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+  <div class="container-fluid py-4">
+    <h1 class="display-5 fw-bold text-primary">Caring for our community.</h1>
+    <p class="col-md-9 fs-5">
+      Piki Ora Medical Centre offers easy online appointment booking with our
+      experienced team of doctors. Sign up in minutes, choose a time that suits,
+      and manage your bookings online.
+    </p>
+    <div class="mt-4">
+      <a class="btn btn-primary btn-lg me-2" href="{% url 'clinic:doctor_list' %}">Browse Doctors</a>
+      {% if not user.is_authenticated %}
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'accounts:register' %}">Register as a Patient</a>
+      {% else %}
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'clinic:my_appointments' %}">My Appointments</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">1. Register</h5>
+        <p class="card-text text-muted">
+          Create a free patient account in less than a minute.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">2. Choose a doctor</h5>
+        <p class="card-text text-muted">
+          Browse our team and pick a time slot that suits you.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">3. Book online</h5>
+        <p class="card-text text-muted">
+          Confirm in one click — and edit or cancel anytime.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
