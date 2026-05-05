@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Our Doctors | Piki Ora{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Our Doctors</h1>
+
+{% if doctors %}
+  <div class="row g-4">
+    {% for doctor in doctors %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if doctor.photo_url %}
+            <img src="{{ doctor.photo_url }}" class="card-img-top" alt="Photo of Dr. {{ doctor.name }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">Dr. {{ doctor.name }}</h5>
+            <h6 class="card-subtitle text-muted mb-2">{{ doctor.specialization }}</h6>
+            <p class="card-text small">{{ doctor.bio|truncatewords:25 }}</p>
+          </div>
+          <div class="card-footer bg-white">
+            <a href="{% url 'clinic:doctor_detail' doctor.pk %}" class="btn btn-primary btn-sm w-100">
+              View Slots & Book
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-info">
+    No doctors are currently listed. Please check back later.
+  </div>
+{% endif %}
+{% endblock %}
