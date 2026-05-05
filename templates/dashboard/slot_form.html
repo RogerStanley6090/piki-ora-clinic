@@ -1,0 +1,32 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load widget_tweaks %}
+
+{% block dashboard_content %}
+<h1>{{ verb }} Slot</h1>
+<div class="card shadow-sm">
+  <div class="card-body">
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {% if field.field.widget.input_type == 'checkbox' %}
+            <div class="form-check">
+              {{ field|add_class:"form-check-input" }}
+            </div>
+          {% else %}
+            {{ field|add_class:"form-control" }}
+          {% endif %}
+          {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+          {% if field.errors %}<div class="text-danger small">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-secondary" href="{% url 'dashboard:slots_list' %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

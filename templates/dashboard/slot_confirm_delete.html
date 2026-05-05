@@ -1,0 +1,18 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+<h1 class="text-danger">Delete Slot</h1>
+<div class="card border-danger shadow-sm">
+  <div class="card-body">
+    <p>
+      Delete the slot for <strong>{{ slot.doctor.name }}</strong>
+      at <strong>{{ slot.start_time|date:"l d M Y H:i" }}</strong>?
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+      <a class="btn btn-secondary" href="{% url 'dashboard:slots_list' %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
