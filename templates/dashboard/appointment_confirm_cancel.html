@@ -1,0 +1,21 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+<h1 class="text-danger">Cancel Appointment</h1>
+<div class="card border-danger shadow-sm">
+  <div class="card-body">
+    <p>
+      Cancel the appointment for
+      <strong>{{ appointment.patient.get_full_name|default:appointment.patient.username }}</strong>
+      with <strong>Dr. {{ appointment.slot.doctor.name }}</strong>
+      on <strong>{{ appointment.slot.start_time|date:"l d M Y H:i" }}</strong>?
+    </p>
+    <p class="small text-muted">The slot will be returned to availability if it's still in the future.</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+      <a class="btn btn-secondary" href="{% url 'dashboard:appointments_list' %}">Keep</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
