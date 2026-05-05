@@ -1,0 +1,72 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+<h1 class="mb-4">Dashboard Overview</h1>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-sm-6">
+    <div class="card text-bg-primary shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2">Doctors</h6>
+        <p class="display-6 mb-0">{{ doctor_count }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="card text-bg-info shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2">Available Slots</h6>
+        <p class="display-6 mb-0">{{ available_slot_count }}</p>
+        <small>of {{ slot_count }} total</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="card text-bg-success shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2">Appointments</h6>
+        <p class="display-6 mb-0">{{ appointment_count }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="card text-bg-secondary shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2">Users</h6>
+        <p class="display-6 mb-0">{{ patient_count|add:admin_count }}</p>
+        <small>{{ patient_count }} patient(s), {{ admin_count }} admin(s)</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header">Next 5 Upcoming Appointments</div>
+  <div class="card-body p-0">
+    {% if upcoming_appointments %}
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in upcoming_appointments %}
+            <tr>
+              <td>{{ a.slot.start_time|date:"D d M, H:i" }}</td>
+              <td>{{ a.slot.doctor.name }}</td>
+              <td>{{ a.patient.get_full_name|default:a.patient.username }}</td>
+              <td><a class="btn btn-sm btn-outline-primary" href="{% url 'dashboard:appointment_edit' a.pk %}">View</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="m-3 text-muted">No upcoming appointments yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

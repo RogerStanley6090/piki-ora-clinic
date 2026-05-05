@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | Piki Ora{% endblock %}
+
+{% block content %}
+<div class="row">
+  <aside class="col-lg-3 mb-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white">Admin Menu</div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+           href="{% url 'dashboard:home' %}">Overview</a>
+        <a class="list-group-item list-group-item-action {% if 'doctors' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'dashboard:doctors_list' %}">Doctors</a>
+        <a class="list-group-item list-group-item-action {% if 'slots' in request.resolver_match.url_name or 'slot_' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'dashboard:slots_list' %}">Appointment Slots</a>
+        <a class="list-group-item list-group-item-action {% if 'appointment' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'dashboard:appointments_list' %}">Appointments</a>
+        <a class="list-group-item list-group-item-action {% if 'user' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'dashboard:users_list' %}">Users</a>
+      </div>
+    </div>
+  </aside>
+
+  <section class="col-lg-9">
+    {% block dashboard_content %}{% endblock %}
+  </section>
+</div>
+{% endblock %}
