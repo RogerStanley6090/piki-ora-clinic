@@ -15,10 +15,10 @@ fi
 echo "Using: $PIP_CMD"
 
 echo "==> Upgrading pip..."
-$PIP_CMD install --upgrade pip
+$PIP_CMD install --upgrade pip --break-system-packages
 
 echo "==> Installing Python dependencies..."
-$PIP_CMD install -r requirements.txt
+$PIP_CMD install -r requirements.txt --break-system-packages
 
 echo "==> Collecting static files..."
 PY_CMD="python3.12"
