@@ -1,0 +1,18 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block dashboard_content %}
+<h1 class="text-danger">Delete Doctor</h1>
+<div class="card border-danger shadow-sm">
+  <div class="card-body">
+    <p>
+      Are you sure you want to delete <strong>Dr. {{ doctor.name }}</strong>?
+      All of their slots and any associated appointments will also be removed.
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+      <a class="btn btn-secondary" href="{% url 'dashboard:doctors_list' %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

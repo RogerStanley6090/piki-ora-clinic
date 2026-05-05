@@ -1,0 +1,24 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load widget_tweaks %}
+
+{% block dashboard_content %}
+<h1>{{ verb }} Doctor</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field|add_class:"form-control" }}
+          {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+          {% if field.errors %}<div class="text-danger small">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-secondary" href="{% url 'dashboard:doctors_list' %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
