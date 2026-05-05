@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | Piki Ora{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="card-title">My Profile</h2>
+        <hr>
+        <dl class="row mb-0">
+          <dt class="col-sm-4">Username</dt>
+          <dd class="col-sm-8">{{ profile_user.username }}</dd>
+
+          <dt class="col-sm-4">Full name</dt>
+          <dd class="col-sm-8">{{ profile_user.get_full_name|default:"—" }}</dd>
+
+          <dt class="col-sm-4">Email</dt>
+          <dd class="col-sm-8">{{ profile_user.email|default:"—" }}</dd>
+
+          <dt class="col-sm-4">Phone</dt>
+          <dd class="col-sm-8">{{ profile_user.phone|default:"—" }}</dd>
+
+          <dt class="col-sm-4">Role</dt>
+          <dd class="col-sm-8">
+            <span class="badge bg-{% if profile_user.is_clinic_admin %}danger{% else %}info{% endif %}">
+              {{ profile_user.get_role_display }}
+            </span>
+          </dd>
+
+          <dt class="col-sm-4">Joined</dt>
+          <dd class="col-sm-8">{{ profile_user.date_joined|date:"d M Y" }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
